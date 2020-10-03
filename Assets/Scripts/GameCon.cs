@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class GameCon : MonoBehaviour
@@ -31,6 +32,10 @@ public class GameCon : MonoBehaviour
         {
             spawners.Add(obj);
         }
+
+        if (spawners.Count > 0)
+            SpawnEnemies(spawners, loopTimes +1);
+
     }
 
     
@@ -39,4 +44,14 @@ public class GameCon : MonoBehaviour
     {
         
     }
+
+    void SpawnEnemies(List<GameObject> spawners, int numSpawns)
+    {
+        for (int i = 0; i < numSpawns; i++)
+        {
+            int randSpawner = UnityEngine.Random.Range(0, spawners.Count);
+            spawners[randSpawner].GetComponent<SpawnerCon>().Spawn(numSpawns/2 + 1);
+        }
+    }
+
 }

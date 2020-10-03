@@ -59,7 +59,6 @@ public class PlayerMovement : MonoBehaviour, PlayerControlls.IPlayerMovementActi
 
     public void OnMoveRight(InputAction.CallbackContext context)
     {
-        //Vector2 force = new Vector2(1, 0);
         if (context.phase == InputActionPhase.Performed)
             moveForce = new Vector2(1, 0);
         else
