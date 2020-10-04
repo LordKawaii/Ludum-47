@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - Spawner
+  - HealthIco
   layers:
   - Default
   - TransparentFX

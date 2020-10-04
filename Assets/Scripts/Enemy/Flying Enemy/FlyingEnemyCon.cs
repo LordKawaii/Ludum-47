@@ -20,7 +20,7 @@ public class FlyingEnemyCon : MonoBehaviour
         startingPos = transform.position;
         randomSpot = transform.position;
         rb2d = GetComponent<Rigidbody2D>();
-        StartCoroutine(LazyFlying(startingPos, 1f, 1f, 2f));
+        StartCoroutine(LazyFlying(startingPos, 1f, 1f, 1f));
     }
 
     // Update is called once per frame

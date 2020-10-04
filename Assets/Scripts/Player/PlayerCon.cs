@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCon : MonoBehaviour
 {
     [SerializeField]
-    float health = 100;
+    int health = 2;
 
     PlayerAnimator playerAni;
 
@@ -24,5 +24,10 @@ public class PlayerCon : MonoBehaviour
     public void HitPlayer()
     {
         playerAni.TriggerHit();
+        health--;
+        if (health > 0)
+        GameCon.Instance.SetHealthIco(health);
+        if (health == 0)
+            GameCon.Instance.RestartLoop();
     }
 }

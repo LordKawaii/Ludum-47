@@ -8,12 +8,13 @@ public class SpawnerCon : MonoBehaviour
 
     [SerializeField]
     GameObject enemy;
-
+    [SerializeField]
+    float spawnDelay = .5f;
     public void Spawn(int num)
     {
         if (enemy != null)
         {
-            StartCoroutine(spawnTimer(.5f, num));
+            StartCoroutine(spawnTimer(spawnDelay, num));
         }
     }
 
