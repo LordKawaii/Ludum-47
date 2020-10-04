@@ -8,6 +8,7 @@ public class FlyingEnemyCon : MonoBehaviour
     [SerializeField]
     float flySpeed = 5f;
     Rigidbody2D rb2d;
+    SpriteRenderer spriteRend;
 
     bool hasSeenPlayer = false;
     Vector3 startingPos;
@@ -15,6 +16,7 @@ public class FlyingEnemyCon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spriteRend = GetComponent<SpriteRenderer>();
         startingPos = transform.position;
         randomSpot = transform.position;
         rb2d = GetComponent<Rigidbody2D>();
@@ -27,6 +29,10 @@ public class FlyingEnemyCon : MonoBehaviour
         Vector2 direction = randomSpot - transform.position;
         if (transform.position != randomSpot)
             rb2d.AddForce(direction);
+        if (direction.x > 0)
+            spriteRend.flipX = true;
+        else
+            spriteRend.flipX = false;
 
     }
 
