@@ -11,17 +11,19 @@ public class Countdown : MonoBehaviour
     [SerializeField]
     float timeLeft = 2f;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
-        timer = GetComponent<TextMeshProUGUI>();
+        timer = gameObject.GetComponent<TextMeshProUGUI>();
         timer.text = "2.00";
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer.text = timeLeft.ToString().TrimEnd('x');
+        timer.text = timeLeft.ToString();
         timeLeft = timeLeft - Time.deltaTime;
     }
 }

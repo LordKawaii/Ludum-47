@@ -7,8 +7,17 @@ public class FlyingEnemyCon : MonoBehaviour
 {
     [SerializeField]
     float flySpeed = 5f;
+    [SerializeField]
+    float minTimeToSpoop = 1;
+    [SerializeField]
+    float maxTimeToSpoop = 3;
+    [SerializeField]
+    List<AudioClip> spoops;
+
     Rigidbody2D rb2d;
     SpriteRenderer spriteRend;
+
+    AudioSource audioS;
 
     bool hasSeenPlayer = false;
     Vector3 startingPos;
@@ -19,8 +28,10 @@ public class FlyingEnemyCon : MonoBehaviour
         spriteRend = GetComponent<SpriteRenderer>();
         startingPos = transform.position;
         randomSpot = transform.position;
+        audioS = GetComponent<AudioSource>();
         rb2d = GetComponent<Rigidbody2D>();
         StartCoroutine(LazyFlying(startingPos, 1f, 1f, 1f));
+        StartCoroutine(PlaySpoop(maxTimeToSpoop, maxTimeToSpoop, spoops));
     }
 
     // Update is called once per frame
@@ -43,6 +54,16 @@ public class FlyingEnemyCon : MonoBehaviour
 
         Vector2 nextSpot = new Vector2(newX, newY);
         return nextSpot;
+    }
+
+    IEnumerator PlaySpoop (float minTime, float maxTime, List<AudioClip> spoops)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(minTime, maxTime));
+            audioS.pitch = UnityEngine.Random.Range(-1f, 1f);
+            audioS.PlayOneShot(spoops[UnityEngine.Random.Range(0, spoops.Count)]);
+        }
     }
 
     IEnumerator LazyFlying(Vector3 startPos, float minTime, float maxTime, float range)

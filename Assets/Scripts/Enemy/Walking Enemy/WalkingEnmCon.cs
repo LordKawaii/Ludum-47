@@ -8,24 +8,38 @@ using UnityEngineInternal;
 public class WalkingEnmCon : MonoBehaviour
 {
     bool walkingRight = true;
+    
+    [SerializeField]
     float walkingSpeed = 1;
+    
     SpriteRenderer spriteRen;
+    
+    [SerializeField]
+    float minTimeToSpoop = 1;
+    
+    [SerializeField]
+    float maxTimeToSpoop = 3;
+    
+    [SerializeField]
+    List<AudioClip> spoops;
+
+    AudioSource audioS;
 
     private void Awake()
     {
+        audioS = GetComponent<AudioSource>();
         spriteRen = GetComponent<SpriteRenderer>();
         if (UnityEngine.Random.Range(0, 2) == 1)
             walkingRight = false;
         if (walkingRight)
             spriteRen.flipX = true;
-
-  
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(PlaySpoop(maxTimeToSpoop, maxTimeToSpoop, spoops));
+
     }
 
     private void FixedUpdate()
@@ -53,6 +67,7 @@ public class WalkingEnmCon : MonoBehaviour
         }
         else if (hitRight.collider != null)
         {
+            Debug.Log(hitRight.collider.name);
             if (hitRight.collider.tag == "Wall" || hitRight.collider.tag == "Floor")
             {
                 walkingRight = false;
@@ -61,12 +76,23 @@ public class WalkingEnmCon : MonoBehaviour
         }
         else if (hitLeft.collider != null)
         {
+            Debug.Log(hitLeft.collider.name);
             if (hitLeft.collider.tag == "Wall" || hitLeft.collider.tag == "Floor")
             {
+                
                 walkingRight = true;
                 spriteRen.flipX = true;
             }
         }
 
+    }
+    IEnumerator PlaySpoop(float minTime, float maxTime, List<AudioClip> spoops)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(minTime, maxTime));
+            audioS.pitch = UnityEngine.Random.Range(-.5f, 1.5f);
+            audioS.PlayOneShot(spoops[UnityEngine.Random.Range(0, spoops.Count)]);
+        }
     }
 }
