@@ -8,6 +8,7 @@ TagManager:
   - Spawner
   - HealthIco
   - Enemy
+  - StartImg
   layers:
   - Default
   - TransparentFX

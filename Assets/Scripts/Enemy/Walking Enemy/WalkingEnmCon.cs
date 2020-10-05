@@ -67,7 +67,6 @@ public class WalkingEnmCon : MonoBehaviour
         }
         else if (hitRight.collider != null)
         {
-            Debug.Log(hitRight.collider.name);
             if (hitRight.collider.tag == "Wall" || hitRight.collider.tag == "Floor")
             {
                 walkingRight = false;
@@ -76,7 +75,6 @@ public class WalkingEnmCon : MonoBehaviour
         }
         else if (hitLeft.collider != null)
         {
-            Debug.Log(hitLeft.collider.name);
             if (hitLeft.collider.tag == "Wall" || hitLeft.collider.tag == "Floor")
             {
                 

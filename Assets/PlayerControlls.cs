@@ -49,6 +49,14 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""7b665125-a32a-4e06-8db8-2f96e509096d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -183,6 +191,28 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef2d1c8c-7453-4c25-8c83-041f92af2fbb"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be621630-cc4e-4005-900c-7ac244859bdf"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -201,6 +231,7 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
         m_PlayerMovement_MoveLeft = m_PlayerMovement.FindAction("MoveLeft", throwIfNotFound: true);
         m_PlayerMovement_Duck = m_PlayerMovement.FindAction("Duck", throwIfNotFound: true);
         m_PlayerMovement_Jump = m_PlayerMovement.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerMovement_Start = m_PlayerMovement.FindAction("Start", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -254,6 +285,7 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMovement_MoveLeft;
     private readonly InputAction m_PlayerMovement_Duck;
     private readonly InputAction m_PlayerMovement_Jump;
+    private readonly InputAction m_PlayerMovement_Start;
     public struct PlayerMovementActions
     {
         private @PlayerControlls m_Wrapper;
@@ -262,6 +294,7 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
         public InputAction @MoveLeft => m_Wrapper.m_PlayerMovement_MoveLeft;
         public InputAction @Duck => m_Wrapper.m_PlayerMovement_Duck;
         public InputAction @Jump => m_Wrapper.m_PlayerMovement_Jump;
+        public InputAction @Start => m_Wrapper.m_PlayerMovement_Start;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -283,6 +316,9 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnJump;
+                @Start.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnStart;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -299,6 +335,9 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
             }
         }
     }
@@ -318,5 +357,6 @@ public class @PlayerControlls : IInputActionCollection, IDisposable
         void OnMoveLeft(InputAction.CallbackContext context);
         void OnDuck(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
     }
 }

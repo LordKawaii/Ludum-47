@@ -120,5 +120,9 @@ public class PlayerMovement : MonoBehaviour, PlayerControlls.IPlayerMovementActi
 
     public void OnDuck(InputAction.CallbackContext context)
     {
+    }    
+    public void OnStart(InputAction.CallbackContext context)
+    {
+        GameCon.Instance.StartGame();
     }
 }

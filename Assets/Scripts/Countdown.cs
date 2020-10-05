@@ -11,7 +11,7 @@ public class Countdown : MonoBehaviour
     [SerializeField]
     float timeLeft = 2f;
 
-
+    bool timerEnded = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,19 @@ public class Countdown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timeLeft -= Time.deltaTime;
+        if (timeLeft < 10)
+            timer.color = Color.red;
+        if (timeLeft < 0)
+            timeLeft = 0;
         timer.text = timeLeft.ToString();
-        timeLeft = timeLeft - Time.deltaTime;
+
+
+
+        if (timerEnded == false && timeLeft <=0)
+        {
+            GameCon.Instance.PlayLaugh();
+            timerEnded = true;
+        }
     }
 }
